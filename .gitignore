@@ -92,6 +92,8 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+imports_m.env
+app/imports_m.env
 
 # IPython
 profile_default/
