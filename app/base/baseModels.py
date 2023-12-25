@@ -8,3 +8,8 @@ class BuyProduct(BaseModel):
     shop: str
     buy_date: str
     quantity: int
+    
+class Product(BaseModel):
+    product: str
+    description: str
+    quantity: int
