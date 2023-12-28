@@ -1,41 +1,8 @@
 from fastapi import FastAPI
-from services.ProductService import Products
-from services.BuyProductService import BuyProducts
-from base.baseModels import Product, BuyProduct
+from api import products, buyProducts
 
 app = FastAPI()
 
-@app.get("/v1/products")
-async def getProducts():
-    data = Products.get()
-    return {'data': data}
+app.include_router(products.router, prefix="/v1/products", tags=["products"])
+app.include_router(buyProducts.router, prefix="/v1/buyProducts", tags=["buyProducts"])
 
-@app.post("/v1/products")
-async def createProduct(product: Product):
-    data = Products.post(product)
-    return {'data': data, 'message': 'created with succesful.'}
-
-@app.delete("/v1/products/{product_id}")
-async def deleteProduct(product_id):
-    data = Products.delete(product_id)
-    return {'message': 'deleted with succesful.'}
-
-@app.get("/v1/products/{product_id}") 
-async def getOneProduct(product_id):
-    data = Products.getById(product_id)
-    return data
-
-@app.get("/v1/buyProducts")
-async def getBuyProducts():
-    data = BuyProducts.get()
-    return {'data': data}
-
-@app.post("/v1/buyProducts")
-async def insertBuyProduct(buyProduct: BuyProduct):
-    data = BuyProducts.post(buyProduct)
-    return {'data': data, 'message': 'created with succesful.'}
-
-@app.delete("/v1/buyProducts/{buy_id}")
-async def deleteBuyProduct(buy_id):
-    data = BuyProducts.delete(buy_id)
-    return data
