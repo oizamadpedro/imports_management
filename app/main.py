@@ -1,7 +1,6 @@
 from fastapi import FastAPI
-from crud.ProductsCrud import Products
-from crud.ProductsCrud import insDB, selDB
-from crud.BuyProductsCrud import BuyProducts
+from services.ProductService import Products
+from services.BuyProductService import BuyProducts
 from base.baseModels import Product, BuyProduct
 
 app = FastAPI()
@@ -34,7 +33,7 @@ async def getBuyProducts():
 @app.post("/v1/buyProducts")
 async def insertBuyProduct(buyProduct: BuyProduct):
     data = BuyProducts.post(buyProduct)
-    return data
+    return {'data': data, 'message': 'created with succesful.'}
 
 @app.delete("/v1/buyProducts/{buy_id}")
 async def deleteBuyProduct(buy_id):
