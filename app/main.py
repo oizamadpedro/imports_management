@@ -3,6 +3,7 @@ from api import products, buyProducts, sellProducts
 from querys.querys import getRecentBuys, allSells
 from utils import tools as OSIOTools
 from http import HTTPStatus
+from wa_automate_socket_client import SocketClient
 
 app = FastAPI()
 
@@ -23,3 +24,12 @@ async def recentBuys():
 async def sells():
     data = allSells()
     return OSIOTools.payloadSuccess(data, statusCode=HTTPStatus.OK)
+
+#@app.get("/sendMessage")
+#async def sendMessageWPP():
+#    NUMBER = '5527999221708@c.us'
+#    client = SocketClient('http://localhost:8085/', 'secure_api_key')
+#    client.onMessage(client.sendText(NUMBER, "entendi então ~ api"))
+ #   client.disconnect()
+
+
