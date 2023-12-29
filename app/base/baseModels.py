@@ -17,7 +17,7 @@ class Product(BaseModel):
 
 class SellProduct(BaseModel):
     product_id: int
-    client_id: int = None
+    client_id: int
     buy_id: int
     price: float
     sell_date: str

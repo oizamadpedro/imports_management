@@ -6,3 +6,11 @@ def getRecentBuys():
     query += "FROM buy_products INNER JOIN products ON buy_products.product_id = products.id; "
     recentBuys = selDB(query)
     return recentBuys
+
+def allSells():
+    query = "SELECT sell_products.id as sell_id, sell_products.price, products.product, "
+    query += "clients.counterpart_name, clients.cel_number FROM sell_products "
+    query += "INNER JOIN clients ON sell_products.client_id = clients.client_id "
+    query += "INNER JOIN products ON products.id = sell_products.product_id;"
+    allSells = selDB(query)
+    return allSells

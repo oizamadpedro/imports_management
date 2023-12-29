@@ -14,8 +14,8 @@ class SellProducts:
         return sell
     
     def post(sellProduct: SellProduct):
-        query = "insert into sell_products (product_id, buy_id, price, sell_date) values (%s, %s, %s, %s)"
-        values = (sellProduct.product_id, sellProduct.buy_id, sellProduct.price, sellProduct.sell_date)
+        query = "insert into sell_products (product_id, buy_id, client_id, price, sell_date) values (%s, %s, %s, %s, %s)"
+        values = (sellProduct.product_id, sellProduct.buy_id, sellProduct.client_id, sellProduct.price, sellProduct.sell_date)
         aux = insDB(query, values)
         return aux
     
