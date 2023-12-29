@@ -14,3 +14,10 @@ class Product(BaseModel):
     product: str
     description: str
     quantity: int
+
+class SellProduct(BaseModel):
+    product_id: int
+    client_id: int = None
+    buy_id: int
+    price: float
+    sell_date: str

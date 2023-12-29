@@ -22,4 +22,4 @@ async def deleteProduct(product_id):
 @router.get("/{product_id}")
 async def getOneProduct(product_id):
     data = Products.getById(product_id)
-    return data
+    return {'data': data}
