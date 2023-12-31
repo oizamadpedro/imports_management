@@ -4,8 +4,22 @@ from querys.querys import getRecentBuys, allSells
 from utils import tools as OSIOTools
 from http import HTTPStatus
 from wa_automate_socket_client import SocketClient
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+origins = [
+    "http://localhost:3000",  # Adicione os domínios permitidos aqui
+    "https://seu-outro-dominio.com",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],  # ou especifique os métodos permitidos
+    allow_headers=["*"],  # ou especifique os cabeçalhos permitidos
+)
 
 app.include_router(products.router, prefix="/v1/products", tags=["products"])
 app.include_router(buyProducts.router, prefix="/v1/buyProducts", tags=["buyProducts"])
@@ -14,22 +28,9 @@ app.include_router(sellProducts.router, prefix="/v1/sellProducts", tags=["sellPr
 @app.get("/v1/recentBuys")
 async def recentBuys():
     data = getRecentBuys()
-    if data:
-        status = HTTPStatus.OK
-    else:
-        status = HTTPStatus.NOT_FOUND
-    return OSIOTools.payloadSuccess(data, status)
+    return OSIOTools.payloadSuccess(data, HTTPStatus.OK)
  
 @app.get("/v1/sells")
 async def sells():
     data = allSells()
     return OSIOTools.payloadSuccess(data, statusCode=HTTPStatus.OK)
-
-#@app.get("/sendMessage")
-#async def sendMessageWPP():
-#    NUMBER = '5527999221708@c.us'
-#    client = SocketClient('http://localhost:8085/', 'secure_api_key')
-#    client.onMessage(client.sendText(NUMBER, "entendi então ~ api"))
- #   client.disconnect()
-
-
