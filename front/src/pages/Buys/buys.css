@@ -1,0 +1,22 @@
+#buys h1{
+    font-size: 32px;
+    text-align: center;
+}
+#buys p{
+    text-align: center;
+}
+#buysTable{
+    width: 70%;
+    margin: auto;
+    margin-top: 40px;
+}
+#buyButton{
+    width: 85%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#testeColor{
+    color: rgb(98, 98, 254);
+}

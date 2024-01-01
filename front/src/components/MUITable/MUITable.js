@@ -12,25 +12,26 @@ export default function MUITable(props){
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                 <TableRow>
-                    <TableCell align="right">Produto</TableCell>
-                    <TableCell align="right">Valor</TableCell>
-                    <TableCell align="right">Nome</TableCell>
-                    <TableCell align="right">Número de Celular</TableCell>
+                    <TableCell align="right"><b>Produto</b></TableCell>
+                    <TableCell align="right"><b>Valor</b></TableCell>
+                    {props.profit && <TableCell align="right"><b>Lucro</b></TableCell>}
+                    <TableCell align="right"><b>Nome</b></TableCell>
+                    <TableCell align="right"><b>Número de Celular</b></TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                    {props.sells.map((sell) => (
-                        <TableRow
-                        key={sell.id}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                        <TableCell align="right">{sell.product}</TableCell>
-                        <TableCell align="right">R${sell.price}</TableCell>
-                        <TableCell align="right">{sell.counterpart_name}</TableCell>
-                        <TableCell align="right">{sell.cel_number}</TableCell>
-                        
-                        </TableRow>
-                    ))}
+                {props.sells.map((sell) => (
+                    <TableRow
+                    key={sell.sell_id}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                    <TableCell align="right"><b>{sell.product}</b></TableCell>
+                    <TableCell align="right"><b style={{ color: 'green' }}>R${sell.price}</b></TableCell>
+                    {props.profit && <TableCell align="right"><b style={{ color: 'green' }}>R${sell.profit}</b></TableCell>}
+                    <TableCell align="right">{sell.counterpart_name}</TableCell>
+                    <TableCell align="right">{sell.cel_number}</TableCell>
+                    </TableRow>
+                ))}
                 </TableBody>
             </Table>
         </TableContainer>

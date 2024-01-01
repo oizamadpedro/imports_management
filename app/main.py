@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from api import products, buyProducts, sellProducts
-from querys.querys import getRecentBuys, allSells
+from querys.querys import getRecentBuys, allSells, sellProfit
 from utils import tools as OSIOTools
 from http import HTTPStatus
 from wa_automate_socket_client import SocketClient
@@ -25,7 +25,7 @@ app.include_router(products.router, prefix="/v1/products", tags=["products"])
 app.include_router(buyProducts.router, prefix="/v1/buyProducts", tags=["buyProducts"])
 app.include_router(sellProducts.router, prefix="/v1/sellProducts", tags=["sellProducts"])
 
-@app.get("/v1/recentBuys")
+@app.get("/v1/buys")
 async def recentBuys():
     data = getRecentBuys()
     return OSIOTools.payloadSuccess(data, HTTPStatus.OK)
@@ -33,4 +33,9 @@ async def recentBuys():
 @app.get("/v1/sells")
 async def sells():
     data = allSells()
+    return OSIOTools.payloadSuccess(data, statusCode=HTTPStatus.OK)
+
+@app.get("/v1/sellProfit")
+async def allSellProfit():
+    data = sellProfit()
     return OSIOTools.payloadSuccess(data, statusCode=HTTPStatus.OK)
