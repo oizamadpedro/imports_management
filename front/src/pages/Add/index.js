@@ -85,7 +85,7 @@ export default function Add(){
                         <div className="form-row">
                             <TextField
                                 name="price"
-                                label="Price"
+                                label="Preço"
                                 variant="outlined"
                                 required
                                 value={data.price}
@@ -93,7 +93,7 @@ export default function Add(){
                             />
                             <TextField
                                 name="rate_product"
-                                label="Rate Product"
+                                label="Taxa"
                                 variant="outlined"
                                 value={data.rate_product}
                                 required
@@ -103,7 +103,7 @@ export default function Add(){
                         <div className="form-row">
                             <TextField
                                 name="shop"
-                                label="Shop"
+                                label="Loja"
                                 required
                                 variant="outlined"
                                 value={data.shop}
@@ -114,7 +114,7 @@ export default function Add(){
                         <div className="form-row">
                             <TextField
                                 name="quantity"
-                                label="Quantity"
+                                label="Quantidade"
                                 required
                                 variant="outlined"
                                 value={data.quantity}
@@ -122,7 +122,7 @@ export default function Add(){
                             />
                             <TextField
                                 name="order_id"
-                                label="Order ID"
+                                label="ID da Ordem"
                                 required
                                 variant="outlined"
                                 value={data.order_id}
