@@ -18,8 +18,8 @@ class BuyProducts:
         return products
     
     def post(buyProduct: BuyProduct):
-        query = "insert into buy_products (product_id, price, rate_product, shop, buy_date, quantity, order_id) values (%s, %s, %s, %s, %s, %s, %s)"
-        values = (buyProduct.product_id, buyProduct.price, buyProduct.rate_product, buyProduct.shop, buyProduct.buy_date, buyProduct.quantity, buyProduct.order_id)
+        query = "insert into buy_products (product_id, price, rate_product, shop, quantity, order_id) values (%s, %s, %s, %s, %s, %s)"
+        values = (buyProduct.product_id, buyProduct.price, buyProduct.rate_product, buyProduct.shop, buyProduct.quantity, buyProduct.order_id)
         aux = insDB(query, values)
         query = "update products set quantity = quantity + "+str(buyProduct.quantity)+" where id="+str(buyProduct.product_id)+""
         aux = insDB(query, values=None)

@@ -69,7 +69,7 @@ export default function Buys(){
                 </TableContainer>
             </div>
             <div id="buyButton">
-              <Button variant='contained'>Adicionar Compra</Button>
+              <a href='/add'><Button variant='contained'>Adicionar Compra</Button></a>
             </div>
             <div id="border"></div>
         </div>

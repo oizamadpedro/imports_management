@@ -1,0 +1,18 @@
+#products h1{
+    font-size: 32px;
+    text-align: center;
+}
+#products p{
+    text-align: center;
+}
+#productsTable{
+    width: 70%;
+    margin: auto;
+    margin-top: 40px;
+}
+#productButton{
+    width: 85%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+}

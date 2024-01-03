@@ -24,9 +24,12 @@
 #linkTable{
     width: 75%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin: auto;
     padding: 25px;
+}
+#linkTable button{
+    margin-left: 15px;
 }
 #border{
     padding: 25px;

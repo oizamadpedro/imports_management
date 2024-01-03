@@ -42,6 +42,7 @@ export default function Home() {
             <div id="border"></div>
             <div id="linkTable">
               <Link to="/compras"><Button variant='contained'>Tabela de Compras</Button></Link>
+              <Link to="/products"><Button variant='contained'>Catálogo de Produtos</Button></Link>
             </div>
         </div>
     )

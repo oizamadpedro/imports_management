@@ -6,7 +6,6 @@ class BuyProduct(BaseModel):
     price: float
     rate_product: float = None
     shop: str
-    buy_date: str
     quantity: int
     order_id: str
     
