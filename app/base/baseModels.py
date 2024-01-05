@@ -20,3 +20,10 @@ class SellProduct(BaseModel):
     buy_id: int
     price: float
     sell_date: str
+
+class Client(BaseModel):
+    client_id: int
+    counterpart_name: str
+    document: str = None
+    cep: str = None
+    cel_number: str
