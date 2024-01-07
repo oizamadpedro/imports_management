@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from api import products, buyProducts, sellProducts, clients
+from api import products, buyProducts, sellProducts, clients, users
 from querys.querys import getRecentBuys, allSells, sellProfit
 from utils import tools as OSIOTools
 from http import HTTPStatus
@@ -25,6 +25,7 @@ app.include_router(products.router, prefix="/v1/products", tags=["products"])
 app.include_router(buyProducts.router, prefix="/v1/buyProducts", tags=["buyProducts"])
 app.include_router(sellProducts.router, prefix="/v1/sellProducts", tags=["sellProducts"])
 app.include_router(clients.router, prefix="/v1/clients", tags=["clients"])
+app.include_router(users.router, prefix="/v1/users", tags=["users"])
 
 @app.get("/v1/buys")
 async def recentBuys():

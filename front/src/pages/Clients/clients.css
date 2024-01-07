@@ -1,3 +1,14 @@
 #clients h1, #clients p{
     text-align: center;
 }
+#clientsTable{
+    width: 70%;
+    margin: auto;
+    margin-top: 40px;
+}
+#buttonClient{
+    width: 85%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+}

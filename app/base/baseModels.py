@@ -8,7 +8,7 @@ class BuyProduct(BaseModel):
     shop: str
     quantity: int
     order_id: str
-    
+
 class Product(BaseModel):
     product: str
     description: str
@@ -22,8 +22,11 @@ class SellProduct(BaseModel):
     sell_date: str
 
 class Client(BaseModel):
-    client_id: int
     counterpart_name: str
     document: str = None
     cep: str = None
     cel_number: str
+
+class User(BaseModel):
+    username: str
+    password: str
