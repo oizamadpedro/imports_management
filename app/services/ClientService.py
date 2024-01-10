@@ -7,8 +7,17 @@ class Clients:
         clients = selDB(query)
         return clients
     
-    def post(client: Client):
-        query = "INSERT INTO clients (counterpart_name, document, cep, cel_number) VALUES (%s, %s, %s, %s)"
-        values = (client.counterpart_name, client.document, client.cep, client.cel_number)
-        insDB(query, values)
+    def clientIsAdded(client: Client):
+        query = "select * from clients where cel_number=%s"
+        values = (client.cel_number,)
+        client = selDB(query, values)
         return client
+    
+    def post(client: Client):
+        if not Clients.clientIsAdded(client):
+            query = "INSERT INTO clients (counterpart_name, document, cep, cel_number) VALUES (%s, %s, %s, %s)"
+            values = (client.counterpart_name, client.document, client.cep, client.cel_number)
+            insDB(query, values)
+            return client
+        else:
+            return {'error': 'client already is added.'}

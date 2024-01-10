@@ -16,12 +16,23 @@ export default function Clients(){
     const [clients, setClients] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:8000/v1/clients")
-            .then((response) => response.json())
-            .then((json) => {
-                setClients(json.results);
-            })
+        const fetchClients = async () => {
+          try {
+            const response = await fetch("http://localhost:8000/v1/clients");
+            if (!response.ok) {
+              throw new Error(`Erro na requisição: ${response.status}`);
+            }
+            const clients = await response.json();
+            /*console.log(clients.data); -> FOR DEBUG */
+            setClients(clients.data);
+          } catch (error) {
+            console.error("Erro ao buscar dados:", error);
+          }
+        };
+        fetchClients();
     }, []);
+
+    console.log(clients);
  
     return(
         <div id='clients'>
@@ -58,7 +69,6 @@ export default function Clients(){
             </div>
             <div id="buttonClient">
                 <TransitionModal />
-
             </div>
         </div>
     )

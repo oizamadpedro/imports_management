@@ -15,9 +15,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Header />
+    {/* basename='/imports_management' */}
     <BrowserRouter>
       <Routes>
-        <Route path='/imports_management/' element={<Home />} />
+        <Route index element={<Home />} />
         <Route path='/compras' element={<Buys />} />
         <Route path='/add' element={<Add />} />
         <Route path='/products' element={<Products />} />

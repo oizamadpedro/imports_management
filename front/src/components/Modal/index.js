@@ -7,6 +7,10 @@ import Button from '@mui/material/Button';
 import { TextField, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import AddIcon from '@mui/icons-material/Add';
+import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import CloseIcon from '@mui/icons-material/Close';
 
 const style = {
   position: 'absolute',
@@ -24,6 +28,7 @@ export default function TransitionModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [clientIsAdd, setClientIsAdd] = React.useState(false);
 
     const [data, setData] = React.useState({
         counterpart_name: '',
@@ -110,9 +115,13 @@ export default function TransitionModal() {
                     />
                 </div>
                 <div className="form-row">
-                    <Button type="submit" variant="contained" color="primary">
-                        Adicionar Cliente
-                    </Button>
+                  <Button type="submit" variant="contained" color="primary" onClick={() => setClientIsAdd(true)}>
+                    Adicionar Cliente
+                  </Button>
+                  <Collapse in={clientIsAdd}>
+                    <Alert severity="success">This is a success alert — check it out!</Alert>
+                  </Collapse>
+                  
                 </div>
             </form>
           </Box>
