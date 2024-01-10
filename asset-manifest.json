@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/imports_management/static/css/main.2924b4db.css",
-    "main.js": "/imports_management/static/js/main.9f84a47d.js",
+    "main.js": "/imports_management/static/js/main.2f343d04.js",
     "static/media/osio_black.png": "/imports_management/static/media/osio_black.d396683f45b2ba50e5dd.png",
     "index.html": "/imports_management/index.html",
     "main.2924b4db.css.map": "/imports_management/static/css/main.2924b4db.css.map",
-    "main.9f84a47d.js.map": "/imports_management/static/js/main.9f84a47d.js.map"
+    "main.2f343d04.js.map": "/imports_management/static/js/main.2f343d04.js.map"
   },
   "entrypoints": [
     "static/css/main.2924b4db.css",
-    "static/js/main.9f84a47d.js"
+    "static/js/main.2f343d04.js"
   ]
 }
