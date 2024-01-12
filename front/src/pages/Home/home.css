@@ -37,3 +37,19 @@
     width: 70%;
     margin: auto;
 }
+.form-row div{
+    margin: 5px;
+}
+.form-row button{
+    display: flex;
+    margin: auto;
+}
+#add_buy{
+    width: 100%;
+    display: flex;
+    justify-content: center;   
+}
+#buy_form{
+    display: flex;
+    flex-direction: column;
+}

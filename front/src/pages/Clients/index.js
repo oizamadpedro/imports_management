@@ -7,8 +7,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useEffect, useState } from 'react';
-import { Button } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
 import TransitionModal from '../../components/Modal';
 
 export default function Clients(){

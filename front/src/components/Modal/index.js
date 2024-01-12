@@ -119,7 +119,7 @@ export default function TransitionModal() {
                     Adicionar Cliente
                   </Button>
                   <Collapse in={clientIsAdd}>
-                    <Alert severity="success">This is a success alert — check it out!</Alert>
+                    <Alert severity="success">Cliente adicionado com sucesso!</Alert>
                   </Collapse>
                   
                 </div>
