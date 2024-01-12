@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 async function getApi(url){
     try {
         const response = await fetch(url);
