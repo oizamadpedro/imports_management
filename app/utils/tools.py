@@ -1,6 +1,9 @@
 import mysql.connector
 import os
 import dotenv
+import json
+from http import HTTPStatus
+from fastapi.responses import JSONResponse
 
 dotenv.load_dotenv('.././imports_m.env')
 
@@ -33,16 +36,14 @@ def selDB(query, values=None):
   db.close()
   return rows
 
-def payloadSuccess(data, statusCode):
+def payloadSuccess(data, status):
   return {
     "data": data,
-    "statusCode": statusCode
+    "status": status
   }
 
-def payloadError(message, statusCode):
-  return {
-    "error": {
-      "message": message,
-      "statusCode": statusCode
-    }
-  }
+def payloadError(message, status):
+  return {"error": { "message": message }, "status": status}
+
+
+

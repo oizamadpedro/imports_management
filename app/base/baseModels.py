@@ -3,8 +3,8 @@ from pydantic import BaseModel
 #base for buyproducts
 class BuyProduct(BaseModel):
     product_id: int
-    price: float
-    rate_product: float = None
+    price: str
+    rate_product: str = None
     shop: str
     quantity: int
     order_id: str
@@ -18,7 +18,7 @@ class SellProduct(BaseModel):
     product_id: int
     client_id: int
     buy_id: int
-    price: float
+    price: str
     sell_date: str
 
 class Client(BaseModel):

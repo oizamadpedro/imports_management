@@ -1,5 +1,6 @@
-from utils.tools import selDB, insDB
+from utils.tools import selDB, insDB, payloadError
 from base.baseModels import Client
+from http import HTTPStatus
 
 class Clients:
     def get():
@@ -20,4 +21,4 @@ class Clients:
             insDB(query, values)
             return client
         else:
-            return {'error': 'client already is added.'}
+            return payloadError(message="client already exists.", statusCode=HTTPStatus.CONFLICT)

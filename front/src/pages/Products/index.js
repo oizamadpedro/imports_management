@@ -8,9 +8,9 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
+import AddProduct from '../../components/AddProductModal';
 
 export default function Products(){
-
     const [products, setProducts] = useState()
 
     useEffect(() => {
@@ -61,9 +61,7 @@ export default function Products(){
                     </Table>
                 </TableContainer>
             </div>
-            <div id="productButton">
-              <a href='/addproduct'><Button variant='contained'>Adicionar Produto</Button></a>
-            </div>
+            <AddProduct />
             <div id="border"></div>
         </div>
     )

@@ -30,14 +30,14 @@ app.include_router(users.router, prefix="/v1/users", tags=["users"])
 @app.get("/v1/buys")
 async def recentBuys():
     data = getRecentBuys()
-    return OSIOTools.payloadSuccess(data, HTTPStatus.OK)
+    return OSIOTools.payloadSuccess(data, 200)
  
 @app.get("/v1/sells")
 async def sells():
     data = allSells()
-    return OSIOTools.payloadSuccess(data, statusCode=HTTPStatus.OK)
+    return OSIOTools.payloadSuccess(data, 200)
 
 @app.get("/v1/sellProfit")
 async def allSellProfit():
     data = sellProfit()
-    return OSIOTools.payloadSuccess(data, statusCode=HTTPStatus.OK)
+    return OSIOTools.payloadSuccess(data, 200)
