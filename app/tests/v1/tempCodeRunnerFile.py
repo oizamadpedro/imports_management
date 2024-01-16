@@ -1,0 +1,2 @@
+
+response = requests.get(ENDPOINT)

@@ -10,31 +10,35 @@ class Products:
   def get():
     query = "SELECT * FROM products;"
     products = selDB(query)
-    return tools.payloadSuccess(products, 200)
+    return {"data": products, "status": 200}
 
   def getById(product_id):
     query = "SELECT * FROM products where id=%s"
     values = (product_id, )
     products = selDB(query, values)
     if products:
-      return tools.payloadSuccess(products, 200)
+      return {"data": products, "status": 200}
     else:
-      return tools.payloadError("Product not found.", 404)
+      return {"error": {"message": "product not found"}, "status": 404}
 
   def post(product: Product):
     query = "INSERT INTO products (product, quantity, description) VALUES (%s, %s, %s)"
     values = (product.product, product.quantity, product.description)
-    insDB(query, values)
-    return tools.payloadSuccess(product, 201)
+    productId = insDB(query, values)
+    productCreated = Products.getById(productId)
+    if "data" in productCreated:
+      return {"data": productCreated['data'], "status": 201}
+    else:
+      return {"error": {"message": "product not created"}, "status": 500}
 
   def put(product): pass
 
   def delete(product_id):
     productToDelete = Products.getById(product_id)
-    if not "error" in productToDelete:
+    if "error" not in productToDelete:
       query = "delete from products where id=%s"
       values = (product_id,)
       insDB(query, values)
-      return {'message': 'deleted with successful.'}
+      return {'message': 'deleted with successful.', "status": 200}
     else:
-      return tools.payloadError("Product not found.", 404)
+      return {"error": {"message": "product not found"}, "status": 404}

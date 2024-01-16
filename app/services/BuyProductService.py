@@ -10,24 +10,28 @@ class BuyProducts:
     def get():
         query = "SELECT * FROM buy_products;"
         products = selDB(query)
-        return tools.payloadSuccess(products, 200)
+        return {"data": products, "status": 200}
   
     def getById(buy_id):
         query = "SELECT * FROM buy_products where id=%s"
         values = (buy_id, )
         product = selDB(query, values)
         if product:
-            return tools.payloadSuccess(product, 200)
+            return {"data": product, "status": 200}
         else:
-            return tools.payloadError("Product not found", 404)
+            return {"error": {"message": "buy product not found."}, "status": 404}
     
     def post(buyProduct: BuyProduct):
         query = "insert into buy_products (product_id, price, rate_product, shop, quantity, order_id) values (%s, %s, %s, %s, %s, %s)"
         values = (buyProduct.product_id, buyProduct.price, buyProduct.rate_product, buyProduct.shop, buyProduct.quantity, buyProduct.order_id)
-        aux = insDB(query, values)
+        buyId = insDB(query, values)
         query = "update products set quantity = quantity + "+str(buyProduct.quantity)+" where id="+str(buyProduct.product_id)+""
-        aux = insDB(query, values=None)
-        return tools.payloadSuccess(buyProduct, 201)
+        insDB(query, values=None)
+        buyCreated = BuyProducts.getById(buyId)
+        if "data" in buyCreated:
+            return {"data": buyCreated['data'], "status": 201}
+        else:
+            return {"error": {"message": "product not created"}, "status": 500}
   
     def put(product): pass
 
@@ -39,4 +43,3 @@ class BuyProducts:
             return {"message": "delete with successful"}
         else:
             return tools.payloadError("Buy not found", 404)
-        return 

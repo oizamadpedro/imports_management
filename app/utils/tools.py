@@ -4,6 +4,8 @@ import dotenv
 import json
 from http import HTTPStatus
 from fastapi.responses import JSONResponse
+from fastapi.encoders import jsonable_encoder
+from typing import Dict
 
 dotenv.load_dotenv('.././imports_m.env')
 
@@ -24,9 +26,10 @@ def insDB(query, values):
   cursor = db.cursor(dictionary=True)
   cursor.execute(query, values)
   db.commit()
+  last_inserted_id = cursor.lastrowid
   cursor.close()
   db.close()
-  return {'message': 'created with successful.'}
+  return last_inserted_id
 
 def selDB(query, values=None):
   db = mysql.connector.connect(**config)
@@ -37,13 +40,16 @@ def selDB(query, values=None):
   return rows
 
 def payloadSuccess(data, status):
-  return {
+  data = jsonable_encoder(data)
+  json_payload =  {
     "data": data,
     "status": status
   }
+  return JSONResponse(status_code=status, content=json_payload)
 
 def payloadError(message, status):
-  return {"error": { "message": message }, "status": status}
+  json_payload = {"error": { "message": message }, "status": status}
+  return JSONResponse(status_code=status, content=json_payload)
 
 
 
