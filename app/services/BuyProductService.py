@@ -40,6 +40,6 @@ class BuyProducts:
             query = "delete from buy_products where id=%s"
             values = (buy_id,)
             insDB(query, values)
-            return {"message": "delete with successful"}
+            return {"message": "delete with successful", "status": 200}
         else:
-            return tools.payloadError("Buy not found", 404)
+            return {"error": {"message": "buy not found"}, "status": 404}
