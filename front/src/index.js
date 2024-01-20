@@ -9,6 +9,7 @@ import Add from './pages/AddBuys/index.js';
 import Products from './pages/Products/index.js';
 import Clients from './pages/Clients/index.js';
 import Github from './pages/GithubIndex/index.js';
+import Client from './pages/ClientDetail/index.js';
 
 //<Route path="*" element={<NoPage />} />
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -24,6 +25,7 @@ root.render(
         <Route path='/products' element={<Products />} />
         <Route path='/clients' element={<Clients />} />
         <Route path='/imports_management/index' element={<Github />} />
+        <Route path='/client/:id' element={<Client />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

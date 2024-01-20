@@ -1,0 +1,21 @@
+#client-detail-page{
+    width: 99vw;
+    height: 85vh;
+    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+}
+#client-detail-container{
+    width: 25vw;
+    height: 50vh;
+    box-shadow: 0 0 15px lightgray;
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+}
+#client-perfil{
+    display: flex;
+    justify-content: center;
+}

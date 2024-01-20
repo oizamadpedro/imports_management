@@ -5,11 +5,13 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Link } from 'react-router-dom';
+import './index.css';
 
 export default function MUITable(props){
     return(
         <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table sx={{ minWidth: 650 }} aria-label="simple table" className='tableSell'>
                 <TableHead>
                 <TableRow>
                     <TableCell align="right"><b>Produto</b></TableCell>
@@ -28,7 +30,7 @@ export default function MUITable(props){
                     <TableCell align="right"><b>{sell.product}</b></TableCell>
                     <TableCell align="right"><b style={{ color: 'green' }}>R${sell.price}</b></TableCell>
                     {props.profit && <TableCell align="right"><b style={{ color: 'green' }}>R${sell.profit}</b></TableCell>}
-                    <TableCell align="right">{sell.counterpart_name}</TableCell>
+                    <TableCell align="right"><Link to={"/client/" + sell.client_id}>{sell.counterpart_name}</Link></TableCell>
                     <TableCell align="right">{sell.cel_number}</TableCell>
                     </TableRow>
                 ))}

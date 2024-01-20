@@ -26,6 +26,7 @@ class Client(BaseModel):
     document: str = None
     cep: str = None
     cel_number: str
+    address: str = None
 
 class User(BaseModel):
     username: str
