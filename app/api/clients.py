@@ -16,6 +16,11 @@ def getClientById(client_id):
     data = Clients.getById(client_id)
     return Response(content=json.dumps(data),  media_type="application/json", status_code=data['status'])
 
+@router.get("/sells/{client_id}") # pega todas as vendas desse cliente
+def clientSells(client_id):
+    data = Clients.getClientSells(client_id)
+    return Response(content=json.dumps(data),  media_type="application/json", status_code=data['status'])
+
 @router.get("/address/{client_id}")
 def clientAddress(client_id):
     data = Clients.getClientAddressById(client_id)

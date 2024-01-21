@@ -1,12 +1,11 @@
 import { Button } from '@mui/material';
-import MUITable from '../../components/MUITable/MUITable';
 import IconButton from '@mui/material/IconButton';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
-import { TextField, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import Alert from '@mui/material/Alert';
 import Collapse from '@mui/material/Collapse';
@@ -44,8 +43,8 @@ export default function AddProduct(){
     }
 
     return (
-        <div>
-            <Button variant="outlined" onClick={handleOpen}><AddIcon />Adicionar</Button>
+        <div style={{display: 'flex', justifyContent: 'flex-end' }}>
+            <Button variant="outlined" onClick={handleOpen} style={{marginRight: '15%'}}><AddIcon />Adicionar</Button>
             <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"

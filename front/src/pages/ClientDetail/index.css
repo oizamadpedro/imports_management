@@ -9,7 +9,7 @@
 }
 #client-detail-container{
     width: 25vw;
-    height: 50vh;
+    min-height: 50vh;
     box-shadow: 0 0 15px lightgray;
     border-radius: 15px;
     padding: 15px;

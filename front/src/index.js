@@ -18,7 +18,7 @@ root.render(
     <Header />
     {/* basename='/imports_management' */}
     <BrowserRouter>
-      <Routes>
+      <Routes >
         <Route index element={<Home />} />
         <Route path='/compras' element={<Buys />} />
         <Route path='/add' element={<Add />} />
