@@ -4,13 +4,8 @@ import { useParams } from 'react-router-dom';
 import { getApi } from '../../utils/fetchapi';
 import  clientPerfil  from '../../assets/img/perfil.png';
 import whatsapp from '../../assets/img/whatsapp.png';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import ClientSells from '../../components/ClientSell';
+
 
 export default function Client(){
 
@@ -29,7 +24,7 @@ export default function Client(){
         }
         getClient();
         getClientSells();
-      }, []);   
+      }, [id]);
     
     console.log(client);
     
@@ -72,29 +67,7 @@ export default function Client(){
             <br></br>
             <div id='client-buy-history'>
                 <h3>Histórico de Compras</h3>
-                <TableContainer component={Paper}>
-                    <Table aria-label="simple table" className='tableSell'>
-                        <TableHead>
-                        <TableRow>
-                            <TableCell align="right"><b>Produto</b></TableCell>
-                            <TableCell align="right"><b>Valor</b></TableCell>
-                            <TableCell align="right"><b>Lucro</b></TableCell>
-                        </TableRow>
-                        </TableHead>
-                        <TableBody>
-                        {sells.map((sell) => (
-                            <TableRow
-                            key={sell.sell_id}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                            <TableCell align="right"><b>{sell.product}</b></TableCell>
-                            <TableCell align="right"><b style={{ color: 'green' }}>R${sell.price}</b></TableCell>
-                            <TableCell align="right"><b style={{ color: '#6574FF' }}>{Math.round(sell.profit * 1000) / 1000}</b></TableCell>
-                            </TableRow>
-                        ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                <ClientSells clientSells={sells} />
             </div>
           </div>
         </div>
