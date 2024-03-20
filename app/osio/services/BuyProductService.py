@@ -11,6 +11,12 @@ class BuyProducts:
         query = "SELECT * FROM buy_products;"
         products = selDB(query)
         return {"data": products, "status": 200}
+    
+    def userBuys(user_id):
+        query = "select * from buy_products where user_id=%s;"
+        values = (user_id,)
+        buys = selDB(query, values)
+        return {"data": buys, "status": 200}
   
     def getById(buy_id):
         query = "SELECT * FROM buy_products where id=%s"

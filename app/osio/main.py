@@ -21,23 +21,23 @@ app.add_middleware(
     allow_headers=["*"],  # ou especifique os cabeçalhos permitidos
 )
 
-app.include_router(products.router, prefix="/v1/products", tags=["products"])
-app.include_router(buyProducts.router, prefix="/v1/buyProducts", tags=["buyProducts"])
-app.include_router(sellProducts.router, prefix="/v1/sellProducts", tags=["sellProducts"])
-app.include_router(clients.router, prefix="/v1/clients", tags=["clients"])
-app.include_router(users.router, prefix="/v1/users", tags=["users"])
+app.include_router(products.router, prefix="/osio/v1/products", tags=["products"])
+app.include_router(buyProducts.router, prefix="/osio/v1/buyProducts", tags=["buyProducts"])
+app.include_router(sellProducts.router, prefix="/osio/v1/sellProducts", tags=["sellProducts"])
+app.include_router(clients.router, prefix="/osio/v1/clients", tags=["clients"])
+app.include_router(users.router, prefix="/osio/v1/users", tags=["users"])
 
-@app.get("/v1/buys")
+@app.get("/osio/v1/buys")
 async def recentBuys():
     data = getRecentBuys()
     return OSIOTools.payloadSuccess(data, 200)
  
-@app.get("/v1/sells")
+@app.get("/osio/v1/sells")
 async def sells():
     data = allSells()
     return OSIOTools.payloadSuccess(data, 200)
 
-@app.get("/v1/sellProfit")
+@app.get("/osio/v1/sellProfit")
 async def allSellProfit():
     data = sellProfit()
     return OSIOTools.payloadSuccess(data, 200)
