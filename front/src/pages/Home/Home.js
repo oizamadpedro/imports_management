@@ -218,6 +218,7 @@ export default function Home() {
               <Link to="/compras"><Button variant='contained'>Tabela de Compras</Button></Link>
               <Link to="/products"><Button variant='contained'>Catálogo de Produtos</Button></Link>
               <Link to="/clients"><Button variant='contained'>Clientes Cadastrados</Button></Link>
+              <Link to="/dashboard"><Button variant='contained'>Dashboard</Button></Link>
             </div>
         </div>
     )

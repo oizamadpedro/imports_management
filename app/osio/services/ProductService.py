@@ -1,6 +1,5 @@
 from utils.tools import selDB, insDB
 from base.baseModels import Product
-from utils import tools
 
 class Products:
   def __init__(self, query, values=None):
@@ -10,7 +9,7 @@ class Products:
   def get():
     query = "SELECT * FROM products;"
     products = selDB(query)
-    return {"data": products, "status": 200}
+    return {"data": products, "status": 200} 
 
   def getById(product_id):
     query = "SELECT * FROM products where id=%s"
