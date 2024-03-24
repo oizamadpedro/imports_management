@@ -103,30 +103,33 @@ export default function Home() {
     }
 
     useEffect(() => {
-      const findProducts = async () => {
-        const data = await getAuthApi("/v1/products", getToken());
-        console.log("PRODUCTS ->", data)
-        setProducts(data.data);
+      if(authenticated){
+        const findProducts = async () => {
+          const data = await getAuthApi("/v1/products", getToken());
+          console.log("PRODUCTS ->", data)
+          setProducts(data.data);
+        }
+        const fetchSells = async () => {
+          const data = await getAuthApi("/v1/sellProducts/", getToken());
+          console.log("SELLPROFIT ->", data)
+          setSells(data.data);
+        }
+        const allClients = async () => {
+          const data = await getAuthApi("/v1/clients/", getToken());
+          console.log("CLIENTS ->", data)
+          setClients(data.data); 
+        }
+        const allBuys = async () => {
+          const data = await getAuthApi("/v1/buys/", getToken());
+          console.log("BUY ->", data)
+          setBuys(data.data);
+        }
+        findProducts();
+        fetchSells();
+        allClients();
+        allBuys();
       }
-      const fetchSells = async () => {
-        const data = await getAuthApi("/v1/sellProducts/", getToken());
-        console.log("SELLPROFIT ->", data)
-        setSells(data.data);
-      }
-      const allClients = async () => {
-        const data = await getAuthApi("/v1/clients/", getToken());
-        console.log("CLIENTS ->", data)
-        setClients(data.data); 
-      }
-      const allBuys = async () => {
-        const data = await getAuthApi("/v1/buys/", getToken());
-        console.log("BUY ->", data)
-        setBuys(data.data);
-      }
-      findProducts();
-      fetchSells();
-      allClients();
-      allBuys();
+
     }, []);   
 
     return(
