@@ -1,4 +1,4 @@
-const BASEURL = "http://localhost:8000";
+const BASEURL = "http://54.232.165.147:8000";
 
 async function getApi(url){
     const fullUrl = BASEURL + url;
