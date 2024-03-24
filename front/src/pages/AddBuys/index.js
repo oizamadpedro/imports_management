@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import './add.css';
 import { TextField, Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { getAuthApi, postAuthApi } from '../../utils/fetchapi';
+import { getToken } from '../../utils/auth';
 export default function Add(){
     const [data, setData] = useState({
         product_id: '',
@@ -20,37 +22,17 @@ export default function Add(){
     
     useEffect(() => {
         const findProducts = async () => {
-            try {
-                const response = await fetch("http://localhost:8000/v1/products");
-                if (!response.ok) {
-                throw new Error(`Erro na requisição: ${response.status}`);
-                }
-                const products = await response.json();
-                console.log(products.data);
-                setProducts(products.data);
-            } catch (error) {
-                console.error("Erro ao buscar dados:", error);
-                // Trate o erro, se necessário
-            }
-        }
-        findProducts()
-    }, []);   
+        const data = await getAuthApi("/v1/products", getToken());
+        //console.log("CLIENTS ->", data)
+        setProducts(data.data);
+    }
+    findProducts();
+    }, [])
 
-    const adicionaCompra = (e) => {
+    const adicionaCompra = async (e) => {
         e.preventDefault();
-        console.log(data);
-        console.log("aaddd");
-        fetch('http://localhost:8000/v1/buyProducts/', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers:{
-                'Content-Type': 'application/json',
-            },
-        })
-        .then((resp) => resp.json())
-        .catch((err) => {
-            console.log(err)
-        })
+        const responseCompra = await postAuthApi('/v1/buyProducts/', data, getToken())
+        console.log(responseCompra);
     }
 
     return(

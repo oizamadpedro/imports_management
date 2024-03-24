@@ -11,7 +11,7 @@ import { TextField, FormControl, InputLabel, Select, MenuItem } from '@mui/mater
 import AddIcon from '@mui/icons-material/Add';
 import Alert from '@mui/material/Alert';
 import Collapse from '@mui/material/Collapse';
-import { getApi, getAuthApi, postApi } from '../../utils/fetchapi';
+import { getApi, getAuthApi, postApi, postAuthApi } from '../../utils/fetchapi';
 import CloseIcon from '@mui/icons-material/Close';
 import { checkJwtTokenIsValid, getToken } from '../../utils/auth';
 import { useNavigate } from "react-router-dom";
@@ -98,28 +98,28 @@ export default function Home() {
     const adicionaVenda = async (e) => {
       e.preventDefault();
       limpaCamposDeAddDaVenda()
-      const responseVenda = await postApi('http://localhost:8000/v1/sellProducts/', data)
+      const responseVenda = await postAuthApi('/v1/sellProducts/', data, getToken())
       console.log(responseVenda);
     }
 
     useEffect(() => {
       const findProducts = async () => {
-        const data = await getAuthApi("http://localhost:8000/v1/products", getToken());
+        const data = await getAuthApi("/v1/products", getToken());
         console.log("PRODUCTS ->", data)
         setProducts(data.data);
       }
       const fetchSells = async () => {
-        const data = await getAuthApi("http://localhost:8000/v1/sellProducts/", getToken());
+        const data = await getAuthApi("/v1/sellProducts/", getToken());
         console.log("SELLPROFIT ->", data)
         setSells(data.data);
       }
       const allClients = async () => {
-        const data = await getAuthApi("http://localhost:8000/v1/clients/", getToken());
+        const data = await getAuthApi("/v1/clients/", getToken());
         console.log("CLIENTS ->", data)
         setClients(data.data); 
       }
       const allBuys = async () => {
-        const data = await getAuthApi("http://localhost:8000/v1/buys/", getToken());
+        const data = await getAuthApi("/v1/buys/", getToken());
         console.log("BUY ->", data)
         setBuys(data.data);
       }

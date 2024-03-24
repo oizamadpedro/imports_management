@@ -1,18 +1,20 @@
 from utils.tools import selDB, insDB
 
-def getRecentBuys():
+def getRecentBuys(user_id):
     query = "SELECT buy_products.id, buy_products.order_id, products.product, buy_products.quantity, buy_products.price, buy_products.rate_product, "
     query += "buy_products.shop "
-    query += "FROM buy_products INNER JOIN products ON buy_products.product_id = products.id; "
-    recentBuys = selDB(query)
+    query += "FROM buy_products INNER JOIN products ON buy_products.product_id = products.id where buy_products.user_id=%s and products.user_id=%s; "
+    values = (user_id, user_id)
+    recentBuys = selDB(query, values)
     return recentBuys
 
-def allSells():
+def allSells(user_id):
     query = "SELECT sell_products.id, sell_products.price, products.product, "
     query += "clients.counterpart_name, clients.cel_number FROM sell_products "
     query += "INNER JOIN clients ON sell_products.client_id = clients.client_id "
-    query += "INNER JOIN products ON products.id = sell_products.product_id;"
-    allSells = selDB(query)
+    query += "INNER JOIN products ON products.id = sell_products.product_id where sell_products.user_id=%s and clients.user_id=%s and products.user_id=%s;"
+    values = (user_id, user_id, user_id)
+    allSells = selDB(query, values)
     return allSells
 
 def sellProfit():

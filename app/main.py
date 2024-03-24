@@ -6,7 +6,10 @@ from http import HTTPStatus
 from wa_automate_socket_client import SocketClient
 from fastapi.middleware.cors import CORSMiddleware
 from auth.routes import auth
-
+from fastapi import Security
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+ 
+security = HTTPBearer()
 app = FastAPI()
 
 origins = [
@@ -30,12 +33,19 @@ app.include_router(users.router, prefix="/v1/users", tags=["users"])
 app.include_router(auth.router, prefix="/auth/v1", tags=["auth"])
 
 @app.get("/v1/buys")
-async def recentBuys():
-    data = getRecentBuys()
-    return OSIOTools.payloadSuccess(data, 200)
- 
-@app.get("/v1/sells")
-async def sells():
-    data = allSells()
-    return OSIOTools.payloadSuccess(data, 200)
+async def recentBuys(credentials: HTTPAuthorizationCredentials = Security(security)):
+    user_data = OSIOTools.getUserData(credentials)
+    user_id = user_data.get("id", None)
+    if user_id:
+        data = getRecentBuys(user_id)
+        return OSIOTools.payloadSuccess(data, 200)
+    return OSIOTools.payloadSuccess(user_data, 200)
 
+@app.get("/v1/sells")
+async def sells(credentials: HTTPAuthorizationCredentials = Security(security)):
+    user_data = OSIOTools.getUserData(credentials)
+    user_id = user_data.get("id", None)
+    if user_id:
+        data = allSells(user_id)
+        return OSIOTools.payloadSuccess(data, 200)
+    return OSIOTools.payloadSuccess(user_data, 200)

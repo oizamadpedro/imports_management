@@ -44,11 +44,11 @@ class Products:
 
   def put(product): pass
 
-  def delete(product_id):
+  def delete(product_id, user_id):
     productToDelete = Products.getById(product_id)
     if "error" not in productToDelete:
-      query = "delete from products where id=%s"
-      values = (product_id,)
+      query = "delete from products where id=%s and user_id = %s"
+      values = (product_id, user_id)
       insDB(query, values)
       return {'message': 'deleted with successful.', "status": 200}
     else:

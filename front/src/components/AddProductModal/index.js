@@ -10,7 +10,8 @@ import AddIcon from '@mui/icons-material/Add';
 import Alert from '@mui/material/Alert';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
-import { postApi } from '../../utils/fetchapi';
+import { postApi, postAuthApi } from '../../utils/fetchapi';
+import { getToken } from '../../utils/auth';
 
 
 const style = {
@@ -37,8 +38,8 @@ export default function AddProduct(){
 
     const adicionaProduto = (e) => {
         e.preventDefault();
-        const responseVenda = postApi('http://localhost:8000/v1/products/', data)
-        console.log(responseVenda);
+        const response = postAuthApi('/v1/products/', data, getToken())
+        console.log(response);
         setOpen(false)
     }
 

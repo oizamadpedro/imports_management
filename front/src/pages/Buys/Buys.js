@@ -8,30 +8,22 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
+import { getAuthApi } from '../../utils/fetchapi';
+import { getToken } from '../../utils/auth';
 
 export default function Buys(){
 
     const [buys, setBuys] = useState([]);
 
     useEffect(() => {
-        const fetchSells = async () => {
-          try {
-            const response = await fetch("http://localhost:8000/v1/buys");
-            if (!response.ok) {
-              throw new Error(`Erro na requisição: ${response.status}`);
-            }
-            const buys = await response.json();
-            console.log(buys.data);
-            setBuys(buys.data);
-          } catch (error) {
-            console.error("Erro ao buscar dados:", error);
-            // Trate o erro, se necessário
-          }
-        };
-    
-        fetchSells();
+      const getBuys = async () => {
+        const data = await getAuthApi(`/v1/buys/`, getToken());
+        console.log(data);
+        setBuys(data.data);
+      }
+      getBuys();
     }, []);
-
+    
 
     return(
         <div id="buys">

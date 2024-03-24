@@ -12,7 +12,7 @@ security = HTTPBearer()
 router = APIRouter()
 
 def payloadReturn(data):
-    return Response(content=json.dumps(data),  media_type="application/json", status_code=data.get("status", None))
+    return Response(content=json.dumps(data),  media_type="application/json", status_code=data.get("status", 200))
 
 @router.get("/")
 async def getProducts(credentials: HTTPAuthorizationCredentials = Security(security)):
@@ -34,8 +34,12 @@ async def createProduct(product: Product, credentials: HTTPAuthorizationCredenti
 
 @router.delete("/{product_id}")
 async def deleteProduct(product_id, credentials: HTTPAuthorizationCredentials = Security(security)):
-    data = Products.delete(product_id)
-    return payloadReturn(data)
+    user_data = getUserData(credentials)
+    user_id = user_data.get("id", None)
+    if user_id:
+        data = Products.delete(product_id, user_id)
+        return payloadReturn(data)
+    return payloadReturn(user_data)
 
 @router.get("/{product_id}")
 async def getOneProduct(product_id, credentials: HTTPAuthorizationCredentials = Security(security)):

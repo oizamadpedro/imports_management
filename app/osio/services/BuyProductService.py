@@ -6,7 +6,7 @@ class BuyProducts:
         self.query = query
         self.values = values
 
-    def get():
+    def get(): 
         query = "SELECT * FROM buy_products;"
         products = selDB(query)
         return {"data": products, "status": 200}
@@ -17,9 +17,9 @@ class BuyProducts:
         buys = selDB(query, values)
         return {"data": buys, "status": 200}
   
-    def getById(buy_id):
-        query = "SELECT * FROM buy_products where id=%s"
-        values = (buy_id, )
+    def getById(buy_id, user_id):
+        query = "SELECT * FROM buy_products where id=%s and user_id=%s;"
+        values = (buy_id, user_id)
         product = selDB(query, values)
         if product:
             return {"data": product, "status": 200}
@@ -40,10 +40,10 @@ class BuyProducts:
   
     def put(product): pass
 
-    def delete(buy_id):
+    def delete(buy_id, user_id):
         if not "error" in BuyProducts.getById(buy_id):
-            query = "delete from buy_products where id=%s"
-            values = (buy_id,)
+            query = "delete from buy_products where id=%s and user_id=%s;"
+            values = (buy_id, user_id)
             insDB(query, values)
             return {"message": "delete with successful", "status": 200}
         else:

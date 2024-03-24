@@ -8,27 +8,21 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useEffect, useState } from 'react';
 import TransitionModal from '../../components/Modal';
+import { getAuthApi } from '../../utils/fetchapi';
+import { getToken } from '../../utils/auth';
 
 export default function Clients(){
 
     const [clients, setClients] = useState([]);
 
     useEffect(() => {
-        const fetchClients = async () => {
-          try {
-            const response = await fetch("http://localhost:8000/v1/clients");
-            if (!response.ok) {
-              throw new Error(`Erro na requisição: ${response.status}`);
-            }
-            const clients = await response.json();
-            /*console.log(clients.data); -> FOR DEBUG */
-            setClients(clients.data);
-          } catch (error) {
-            console.error("Erro ao buscar dados:", error);
-          }
-        };
-        fetchClients();
-    }, []);
+        const findClients = async () => {
+        const data = await getAuthApi("/v1/clients", getToken());
+        //console.log("CLIENTS ->", data)
+        setClients(data.data);
+    }
+    findClients();
+    }, [])
 
     console.log(clients);
  

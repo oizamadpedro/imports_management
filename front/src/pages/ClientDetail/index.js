@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import './index.css';
 import { useParams } from 'react-router-dom';
-import { getApi } from '../../utils/fetchapi';
+import { getApi, getAuthApi } from '../../utils/fetchapi';
 import  clientPerfil  from '../../assets/img/perfil.png';
 import whatsapp from '../../assets/img/whatsapp.png';
 import ClientSells from '../../components/ClientSell';
+import { getToken } from '../../utils/auth';
 
 
 export default function Client(){
@@ -15,12 +16,12 @@ export default function Client(){
 
     useEffect(() => {
         const getClient = async () => {
-          const data = await getApi(`http://localhost:8000/v1/clients/${id}`);
-          setClient(data);
+          const data = await getAuthApi(`/v1/clients/${id}`, getToken());
+          setClient(data.data);
         }
         const getClientSells = async () => {
-            const data = await getApi(`http://localhost:8000/v1/clients/sells/${id}`)
-            setSells(data);
+            const data = await getAuthApi(`/v1/clients/sells/${id}`, getToken())
+            setSells(data.data);
         }
         getClient();
         getClientSells();

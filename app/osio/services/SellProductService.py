@@ -36,11 +36,11 @@ class SellProducts:
         else:
             return {"error": {"message": "Sell not found"}, "status": 404}
     
-    def post(sellProduct: SellProduct):
-        query = "insert into sell_products (product_id, buy_id, client_id, price, sell_date) values (%s, %s, %s, %s, %s)"
-        values = (sellProduct.product_id, sellProduct.buy_id, sellProduct.client_id, sellProduct.price, sellProduct.sell_date)
+    def post(sellProduct: SellProduct, user_id):
+        query = "insert into sell_products (product_id, buy_id, client_id, price, sell_date, user_id) values (%s, %s, %s, %s, %s, %s)"
+        values = (sellProduct.product_id, sellProduct.buy_id, sellProduct.client_id, sellProduct.price, sellProduct.sell_date, user_id)
         sellId = insDB(query, values)
-        query = "update products set quantity = quantity - 1 where id="+str(sellProduct.product_id)+""
+        query = f"update products set quantity = quantity - 1 where id={sellProduct.product_id} and user_id={user_id}"
         insDB(query, values=None)
         sellCreated = SellProducts.getById(sellId)
         if "data" in sellCreated:
@@ -50,11 +50,11 @@ class SellProducts:
     
     def put(sell_product): pass
 
-    def delete(sell_id):
+    def delete(sell_id, user_id):
         dataToDelete = SellProducts.getById(sell_id)
         if not "error" in dataToDelete:
-            query = "delete from sell_products where id=%s"
-            values = (sell_id,)
+            query = "delete from sell_products where id=%s and user_id=%s"
+            values = (sell_id, user_id)
             insDB(query, values)
             return {"message": "delete with successful."}
         else:

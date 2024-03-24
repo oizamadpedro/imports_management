@@ -7,29 +7,21 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useEffect, useState } from 'react';
-import { Button } from '@mui/material';
 import AddProduct from '../../components/AddProductModal';
+import { getAuthApi } from '../../utils/fetchapi';
+import { getToken } from '../../utils/auth';
 
 export default function Products(){
     const [products, setProducts] = useState()
 
     useEffect(() => {
         const findProducts = async () => {
-            try {
-                const response = await fetch("http://localhost:8000/v1/products");
-                if (!response.ok) {
-                throw new Error(`Erro na requisição: ${response.status}`);
-                }
-                const products = await response.json();
-                console.log(products.data);
-                setProducts(products.data);
-            } catch (error) {
-                console.error("Erro ao buscar dados:", error);
-                // Trate o erro, se necessário
-            }
-        }
-        findProducts()
-    }, []);   
+        const data = await getAuthApi("/v1/products", getToken());
+        console.log("PRODUCTS ->", data)
+        setProducts(data.data);
+    }
+    findProducts();
+    }, [])
     return(
         <div id="products">
             <h1>OSIO Software</h1>

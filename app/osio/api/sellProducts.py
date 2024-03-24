@@ -26,12 +26,20 @@ async def getASell(sell_id):
     return data
 
 @router.post("/")
-async def insertSell(sellProduct: SellProduct):
-    data = SellProducts.post(sellProduct)
-    return data
+async def insertSell(sellProduct: SellProduct, credentials: HTTPAuthorizationCredentials = Security(security)):
+    user_data = getUserData(credentials)
+    user_id = user_data.get("id", None)
+    if user_id:
+        data = SellProducts.post(sellProduct, user_id)
+        return payloadReturn(data)
+    return payloadReturn(user_data)
 
 @router.delete("/{sell_id}")
-async def deleteSell(sell_id):
-    data = SellProducts.delete(sell_id)
-    return data
+async def deleteSell(sell_id, credentials: HTTPAuthorizationCredentials = Security(security)):
+    user_data = getUserData(credentials)
+    user_id = user_data.get("id", None)
+    if user_id:
+        data = SellProducts.delete(sell_id, user_id)
+        return payloadReturn(data)
+    return payloadReturn(user_data)
 

@@ -14,7 +14,7 @@ export default function Login(){
         "password": ""
     });
 
-    const navigate = useNavigate();
+    const navigate = useNavigate(); 
 
     const handleChange = (e) => {
         setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -23,7 +23,7 @@ export default function Login(){
     const authenticateUser = async (e) => {
         setSubmitedLogin(true);
         e.preventDefault();
-        const dataToken = await postApi("http://localhost:8000/auth/v1/login", userData);
+        const dataToken = await postApi("/auth/v1/login", userData);
         console.log(dataToken);
         const jwtToken = dataToken['token'];
         if (jwtToken) {

@@ -11,6 +11,8 @@ import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
+import { postAuthApi } from '../../utils/fetchapi';
+import { getToken } from '../../utils/auth';
 
 const style = {
   position: 'absolute',
@@ -37,21 +39,10 @@ export default function TransitionModal() {
         cel_number: '',
     });
 
-    const adiciona = (e) => {
-        e.preventDefault();
-        console.log(data);
-        console.log("aaddd");
-        fetch('http://localhost:8000/v1/clients/', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers:{
-                'Content-Type': 'application/json',
-            },
-        })
-        .then((resp) => resp.json())
-        .catch((err) => {
-            console.log(err)
-        })
+    const adiciona = async (e) => {
+      e.preventDefault();
+      const response = await postAuthApi('/v1/clients/', data, getToken())
+      console.log(response);
     }
 
   return (
