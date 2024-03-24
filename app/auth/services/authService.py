@@ -1,5 +1,5 @@
 from utils import tools as Utils
-from models.userModel import User, UserLogin
+from auth.models.userModel import User, UserLogin
 
 class authService:
     def createUser(user: User):

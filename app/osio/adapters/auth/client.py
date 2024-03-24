@@ -1,10 +1,13 @@
 import requests
+import httpx
+
 
 class AuthClient:
-    def userDetails(token):
+    async def userDetails(token):
         headers = {
             'Authorization': f'Bearer {token}'
         }
-        response = requests.get("http://localhost:8080/auth/v1/user", headers=headers)
-        return response.json()
+        async with httpx.AsyncClient() as client:
+            response = await client.get("http://localhost:8080/auth/v1/user", headers=headers)
+            return response.json()
     

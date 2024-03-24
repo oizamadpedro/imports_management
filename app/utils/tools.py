@@ -7,8 +7,12 @@ from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 from typing import Dict
 import hashlib
+from fastapi import Security
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from auth.routes.auth import decodeToken
 
-dotenv.load_dotenv('../../imports_m.env')
+dotenv.load_dotenv('.././imports_m.env')
+security = HTTPBearer()
 
 DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
@@ -21,6 +25,13 @@ config = {
   'host': DB_HOST,
   'database': DB_NAME
 }
+
+def getUserData(credentials: HTTPAuthorizationCredentials = Security(security)):
+  token = credentials.credentials
+  data = decodeToken(token)
+  if "error" in data:
+    return data
+  return data 
 
 def hash_password(password):
   hashed_password = hashlib.sha256(password.encode()).hexdigest()

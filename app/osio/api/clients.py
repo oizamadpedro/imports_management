@@ -1,15 +1,26 @@
 from fastapi import APIRouter
-from services.ClientService import Clients
-from base.baseModels import Client
+from osio.services.ClientService import Clients
+from osio.base.baseModels import Client
 from fastapi.responses import Response
 import json
-
+from utils.tools import getUserData
+from fastapi import Security
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+ 
+security = HTTPBearer()
 router = APIRouter()
 
+def payloadReturn(data):
+    return Response(content=json.dumps(data),  media_type="application/json", status_code=data.get("status", None))
+
 @router.get("/")
-def clients():
-    clients = Clients.get()
-    return {'data': clients}
+def clients(credentials: HTTPAuthorizationCredentials = Security(security)):
+    user_data = getUserData(credentials)
+    user_id = user_data.get("id", None)
+    if user_id:
+        data = Clients.userClients(user_id)
+        return payloadReturn(data)
+    return payloadReturn(user_data)
 
 @router.get("/{client_id}")
 def getClientById(client_id):

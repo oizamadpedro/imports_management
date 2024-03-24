@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from services.UserService import UserService
-from base.baseModels import User
+from osio.services.UserService import UserService
+from osio.base.baseModels import User
 from hashlib import sha256
 
 router = APIRouter()

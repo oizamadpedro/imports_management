@@ -1,0 +1,18 @@
+#login-page{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#login-container{
+    width: 40%;
+    height: 600px;
+    box-shadow: 0 0 18px lightgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    flex-direction: column;
+    border-radius: 15px;
+}

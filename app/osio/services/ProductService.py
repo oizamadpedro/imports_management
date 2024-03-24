@@ -1,5 +1,5 @@
 from utils.tools import selDB, insDB
-from base.baseModels import Product
+from osio.base.baseModels import Product
 
 class Products:
   def __init__(self, query, values=None):
@@ -10,7 +10,19 @@ class Products:
     query = "SELECT * FROM products;"
     products = selDB(query)
     return {"data": products, "status": 200} 
-
+  
+  def userProducts(user_id):
+    query = "select * from products where user_id=%s;"
+    values = (user_id, )
+    products = selDB(query, values)
+    return {"data": products, "status": 200}
+  
+  def userCreateProduct(product: Product, user_id):
+    query = "INSERT INTO PRODUCTS(product, quantity, description, user_id) VALUES (%s, %s, %s, %s)"
+    values = (product.product, product.quantity, product.description, user_id)
+    productId = insDB(query, values)
+    return {"data": f"created product {productId}", "status": 201}
+      
   def getById(product_id):
     query = "SELECT * FROM products where id=%s"
     values = (product_id, )

@@ -1,5 +1,5 @@
 from utils.tools import selDB, insDB
-from base.baseModels import User
+from osio.base.baseModels import User
 
 class UserService:
     def get():

@@ -11,8 +11,10 @@ import { TextField, FormControl, InputLabel, Select, MenuItem } from '@mui/mater
 import AddIcon from '@mui/icons-material/Add';
 import Alert from '@mui/material/Alert';
 import Collapse from '@mui/material/Collapse';
-import { getApi, postApi } from '../../utils/fetchapi';
+import { getApi, getAuthApi, postApi } from '../../utils/fetchapi';
 import CloseIcon from '@mui/icons-material/Close';
+import { checkJwtTokenIsValid, getToken } from '../../utils/auth';
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: 'absolute',
@@ -38,6 +40,7 @@ export default function Home() {
     const [isAdd, setIsAdd] = useState(false);
     const [clientId, setClientId] = useState("")
     const [buysId, setBuysId] = useState("")
+    const [authenticated, setAuthenticated] = useState(false);
     const [productId, setProductId] = useState("")
     const [data, setData] = useState({
       product_id: '',
@@ -46,6 +49,7 @@ export default function Home() {
       price: '',
       sell_date: ''
     });
+    const navigate = useNavigate();
 
     const limpaCamposDeAddDaVenda = () => {
       document.getElementById('produto').value = "";
@@ -55,6 +59,29 @@ export default function Home() {
       document.getElementById('venda').value = "";
     }
 
+    useEffect(() => {
+      const isAuthenticated = async () => {
+        const jwtToken = localStorage.getItem('jwt');
+        if (jwtToken) {
+          try {
+            const isTokenValid = await checkJwtTokenIsValid(jwtToken);
+            console.log("TOKEN->", isTokenValid);
+            if (isTokenValid.error || isTokenValid.detail) {
+              navigate('/login');
+            } else {
+              setAuthenticated(true);
+            }
+          } catch (error) {
+            navigate('/login');
+            console.error("Error occurred while checking token validity:", error);
+          }
+        } else {
+          navigate('/login'); // Redirecionar se não houver token
+        }
+      }
+      isAuthenticated();
+    }, []);
+
     const changeProductId = (event) => {
       setProductId(event.target.value);
       setData({ ...data, product_id: event.target.value })
@@ -63,7 +90,7 @@ export default function Home() {
       setClientId(event.target.value);
       setData({ ...data, client_id: event.target.value })
     };
-    const changeBuyId = (event) => {
+    const changeBuyId = (event) => { 
       setBuysId(event.target.value);
       setData({ ...data, buy_id: event.target.value })
     };
@@ -77,20 +104,24 @@ export default function Home() {
 
     useEffect(() => {
       const findProducts = async () => {
-        const data = await getApi("http://localhost:8000/v1/products");
-        setProducts(data);
+        const data = await getAuthApi("http://localhost:8000/v1/products", getToken());
+        console.log("PRODUCTS ->", data)
+        setProducts(data.data);
       }
       const fetchSells = async () => {
-        const data = await getApi("http://localhost:8000/v1/sellProfit/");
-        setSells(data);
+        const data = await getAuthApi("http://localhost:8000/v1/sellProducts/", getToken());
+        console.log("SELLPROFIT ->", data)
+        setSells(data.data);
       }
       const allClients = async () => {
-        const data = await getApi("http://localhost:8000/v1/clients/");
-        setClients(data);
+        const data = await getAuthApi("http://localhost:8000/v1/clients/", getToken());
+        console.log("CLIENTS ->", data)
+        setClients(data.data); 
       }
       const allBuys = async () => {
-        const data = await getApi("http://localhost:8000/v1/buys/");
-        setBuys(data);
+        const data = await getAuthApi("http://localhost:8000/v1/buys/", getToken());
+        console.log("BUY ->", data)
+        setBuys(data.data);
       }
       findProducts();
       fetchSells();
@@ -104,7 +135,10 @@ export default function Home() {
             <p>Confira as ultimas vendas abaixo</p>
             <br /> <br/>
             <div id="lastSell">
-              <MUITable sells={sells} profit={profit}/>
+              {authenticated ? (
+                <MUITable sells={sells} profit={profit}/>
+              ): null}
+              
             </div>
             <div id="lucro">
               <Button variant="outlined" onClick={handleOpen}><AddIcon />Adicionar</Button>
@@ -136,9 +170,9 @@ export default function Home() {
                                     onChange={changeProductId}
                                     required
                                 >
-                                  {products?.map((product) => (
+                                  {(products && authenticated)? (products.map((product) => (
                                     <MenuItem value={product.id}>{product.product}</MenuItem>
-                                  ))}
+                                  ))): null}
                                 </Select>
                             </FormControl>
                         </div>
@@ -153,9 +187,9 @@ export default function Home() {
                                 onChange={changeClientId}
                                 required
                             >
-                              {clients?.map((client) => (
+                              {(clients && authenticated)? (clients.map((client) => (
                                 <MenuItem value={client.client_id}>{client.counterpart_name}</MenuItem>
-                              ))}
+                              ))): null}
                             </Select>
                           </FormControl>
                         </div>
@@ -170,9 +204,9 @@ export default function Home() {
                                 onChange={changeBuyId}
                                 required
                             >
-                              {buys?.map((buy) => (
+                              {(buys && authenticated)? (buys.map((buy) => (
                                 <MenuItem value={buy.id}>{buy.product} - {buy.quantity}</MenuItem>
-                              ))}
+                              ))):null}
                             </Select>
                           </FormControl>
                         </div>

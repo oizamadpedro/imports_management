@@ -1,6 +1,5 @@
 from utils.tools import selDB, insDB
-from utils import tools
-from base.baseModels import BuyProduct
+from osio.base.baseModels import BuyProduct
 
 class BuyProducts:
     def __init__(self, query, values=None):
@@ -26,12 +25,12 @@ class BuyProducts:
             return {"data": product, "status": 200}
         else:
             return {"error": {"message": "buy product not found."}, "status": 404}
-    
-    def post(buyProduct: BuyProduct):
-        query = "insert into buy_products (product_id, price, rate_product, shop, quantity, order_id) values (%s, %s, %s, %s, %s, %s)"
-        values = (buyProduct.product_id, buyProduct.price, buyProduct.rate_product, buyProduct.shop, buyProduct.quantity, buyProduct.order_id)
+
+    def userCreateBuy(buyProduct: BuyProduct, user_id):
+        query = "insert into buy_products (product_id, price, rate_product, shop, quantity, order_id, user_id) values (%s, %s, %s, %s, %s, %s, %s)"
+        values = (buyProduct.product_id, buyProduct.price, buyProduct.rate_product, buyProduct.shop, buyProduct.quantity, buyProduct.order_id, user_id)
         buyId = insDB(query, values)
-        query = "update products set quantity = quantity + "+str(buyProduct.quantity)+" where id="+str(buyProduct.product_id)+""
+        query = f"update products set quantity = quantity + {buyProduct.quantity} where id={buyProduct.product_id}"
         insDB(query, values=None)
         buyCreated = BuyProducts.getById(buyId)
         if "data" in buyCreated:

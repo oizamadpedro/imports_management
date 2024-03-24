@@ -11,6 +11,7 @@ import Clients from './pages/Clients/index.js';
 import Github from './pages/GithubIndex/index.js';
 import Client from './pages/ClientDetail/index.js';
 import Dashboard from './pages/Dashboard/index.js';
+import Login from './pages/Login/index.js';
 
 //<Route path="*" element={<NoPage />} />
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -28,6 +29,7 @@ root.render(
         <Route path='/imports_management/index' element={<Github />} />
         <Route path='/client/:id' element={<Client />} />
         <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/login' element={<Login />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

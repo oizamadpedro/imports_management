@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from fastapi.responses import Response
-from services.authService import authService
-from models.userModel import User, UserLogin
+from auth.services.authService import authService
+from auth.models.userModel import User, UserLogin
 from utils import tools as Utils
 from fastapi import Depends, FastAPI, HTTPException, Security
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
@@ -81,7 +81,6 @@ def login(user: UserLogin):
     user.password = Utils.hash_password(user.password)
     userInDB = authService.findUserByEmail(str(user.email))
     if userInDB:
-        print(userInDB)
         if user.password == userInDB[0]['password']:
             print(userInDB[0])
             token = createToken(userInDB[0])

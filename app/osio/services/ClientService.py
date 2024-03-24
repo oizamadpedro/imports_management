@@ -1,15 +1,21 @@
 from utils.tools import selDB, insDB, payloadError
-from base.baseModels import Client
+from osio.base.baseModels import Client
 from http import HTTPStatus
-from adapters.cep.api_cep import CepApi
+from osio.adapters.cep.api_cep import CepApi
 import json
 
 class Clients:
     def get():
         query = "select * from clients;"
-        clients = selDB(query)
+        clients = selDB(query) 
         return clients
     
+    def userClients(user_id):
+        query = "select * from clients where user_id=%s;"
+        values = (user_id, )
+        userClients = selDB(query, values)
+        return {"data": userClients, "status": 200}
+
     def getById(client_id):
         query = "select * from clients where client_id=%s"
         values = (client_id,)
