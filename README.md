@@ -1,4 +1,7 @@
 # imports_management
+
+Esse projeto é um projeto pessoal, feito para eu utilizá-lo. É um gerenciador de compra/venda de quaisquer produtos, no meu caso foi para peças de t.i, este gerenciador conta com controle de estoque, lucro baseado na compra e venda e entre outros..
+
  
 create a imports_m.env with db_user, db_password, db_host, db_name
 
